@@ -3,20 +3,22 @@ import { Book } from "../types/entities/Book";
 import db from "../../db";
 import { BookInput } from "../types/inputTypes/bookInput";
 import { Author } from "../types/entities/Author";
+import { em } from "../utils/entityManager";
 
 @Resolver(Book)
 export class BookResolver {
   @Query(() => [Book])
-  getAllBooks(): Book[] {
-    return db.books
+  async getAllBooks(): Promise<Book[]> {
+    return await em.find(Book, {}, { populate: ['author']})
   }
 
   @Mutation(() => Book)
-  createBook(
+  async createBook(
     @Arg('data') data: BookInput
-  ): Book {
-    const book: Book = {id: 2, title: data.title, releasedAt: data.realeasedDate, author: { id: data.authorId } as  Author }
-    db.books.push(book)
+  ): Promise<Book> {
+    const book = em.create('Book', data) as Book
+    await em.persistAndFlush(book)
+
     return book
   }
 }

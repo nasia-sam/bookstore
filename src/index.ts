@@ -7,10 +7,14 @@ import { buildSchema } from 'type-graphql'
 // resolvers
 import { AuthorResolver } from "./resolvers/AuthorResolver";
 import { BookResolver } from "./resolvers/BookResolver";
+import { initORMConnection } from "./utils/entityManager";
 
 const PORT = process.env.PORT || 4000;
 
 async function bootstrap() {
+  // initiate orm
+  await initORMConnection()
+
   // ... Build GraphQL schema
   const schema = await buildSchema({
     resolvers: [AuthorResolver, BookResolver],

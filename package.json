@@ -17,11 +17,23 @@
     "graphql-scalars": "^1.22.4",
     "reflect-metadata": "^0.2.1",
     "type-graphql": "^2.0.0-beta.6",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@mikro-orm/cli": "^6.1.6",
+    "@mikro-orm/core": "^6.1.6",
+    "@mikro-orm/migrations": "^6.1.6",
+    "@mikro-orm/mysql": "^6.1.6",
     "class-validator": "^0.14.1",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0"
+  },
+  "mikro-orm": {
+    "useTsNode": true,
+    "configPaths": [
+      "./mikro-orm.config.ts",
+      "./dist/mikro-orm.config.js"
+    ]
   }
 }
