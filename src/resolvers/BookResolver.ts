@@ -1,22 +1,21 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
+
 import { Book } from "../types/entities/Book";
-import db from "../../db";
 import { BookInput } from "../types/inputTypes/bookInput";
-import { Author } from "../types/entities/Author";
+import { em } from "../utils/entity-manager";
 
 @Resolver(Book)
 export class BookResolver {
   @Query(() => [Book])
-  getAllBooks(): Book[] {
-    return db.books
+  async getAllBooks(): Promise<Book[]> {
+    return await em.find(Book, {});
   }
 
   @Mutation(() => Book)
-  createBook(
-    @Arg('data') data: BookInput
-  ): Book {
-    const book: Book = {id: 2, title: data.title, releasedAt: data.realeasedDate, author: { id: data.authorId } as  Author }
-    db.books.push(book)
-    return book
+  async createBook(@Arg("data") data: BookInput): Promise<Book> {
+    const book = em.create(Book, data);
+    await em.persistAndFlush(book);
+
+    return book;
   }
 }
