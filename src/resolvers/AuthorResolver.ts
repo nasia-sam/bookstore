@@ -1,11 +1,21 @@
-import { Query, Resolver } from "type-graphql";
+import { Arg, Mutation, Query, Resolver } from "type-graphql";
+
 import { Author } from "../types/entities/Author";
-import db from '../../db'
+import { em } from "../utils/entity-manager";
+import { AuthorInput } from "../types/inputTypes/authorInput";
 
 @Resolver(Author)
 export class AuthorResolver {
   @Query(() => [Author])
-  fetchAllAuthors(): Author[] {
-    return db.authors
+  async fetchAllAuthors(): Promise<Author[]> {
+    return await em.find("Author", {});
+  }
+
+  @Mutation(() => Author)
+  async createAuthor(@Arg("data") data: AuthorInput): Promise<Author> {
+    const author = em.create(Author, data);
+    await em.persistAndFlush(author);
+
+    return author;
   }
 }

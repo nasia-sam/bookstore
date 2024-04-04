@@ -5,14 +5,14 @@ import { IsDate, IsPositive, IsString, Length } from "class-validator";
 export class BookInput {
   @Field()
   @IsString()
-  @Length(2,4)
+  @Length(2, 4)
   title: string;
 
   @Field()
   @IsDate()
-  realeasedDate: Date;
+  releasedAt: Date;
 
   @Field()
   @IsPositive()
-  authorId: number;
+  author: string;
 }

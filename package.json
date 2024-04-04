@@ -6,22 +6,34 @@
   "scripts": {
     "start": "ts-node  ./src/index.ts",
     "test": "jest",
-    "dev": "ts-node-dev  ./src/index.ts"
+    "dev": "ts-node-dev  ./src/index.ts",
+    "mikroorm-schema-up": "npx mikro-orm schema:create -r"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@apollo/server": "^4.10.0",
+    "@mikro-orm/cli": "^6.1.12",
+    "@mikro-orm/core": "^6.1.12",
+    "@mikro-orm/sqlite": "^6.1.12",
     "graphql": "^16.6.0",
     "graphql-scalars": "^1.22.4",
     "reflect-metadata": "^0.2.1",
     "type-graphql": "^2.0.0-beta.6",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "class-validator": "^0.14.1",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0"
+  },
+  "mikro-orm": {
+    "useTsNode": true,
+    "configPaths": [
+      "./src/mikro-orm.config.ts",
+      "./dist/mikro-orm.config.js"
+    ]
   }
 }
