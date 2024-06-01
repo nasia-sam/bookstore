@@ -23,11 +23,11 @@ export class Rental {
   from: Date;
 
   @Field({ nullable: true })
-  @Property()
+  @Property({ nullable: true })
   to?: Date;
 
   @Field({ nullable: true })
-  @Property()
+  @Property({ nullable: true })
   review?: number;
 
   @Field(() => User)

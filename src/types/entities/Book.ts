@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from "type-graphql";
+import { Field, Float, ID, ObjectType, Root } from "type-graphql";
 import {
   Collection,
   Entity,
@@ -34,4 +34,20 @@ export class Book {
   @Field(() => [Rental])
   @OneToMany(() => Rental, (rental) => rental.book)
   rentals = new Collection<Rental>(this);
+
+  @Field(() => Boolean)
+  available(@Root() book: Book) {
+    const rented = book.rentals.getItems().find((rental) => rental.to === null);
+
+    return !rented;
+  }
+
+  @Field(() => Float)
+  rating(@Root() book: Book) {
+    const ratings = book.rentals.getItems().filter((rental) => rental.review);
+
+    return ratings.length === 0
+      ? 0
+      : ratings.reduce((a, b) => a + b.review, 0) / ratings.length;
+  }
 }

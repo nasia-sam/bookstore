@@ -68,8 +68,7 @@ export class RentalResolver {
       },
     ];
 
-    // rentals.forEach((rental) => em.create(Rental, rental));
-    em.create(Rental, rentals);
+    rentals.forEach((rental) => em.create(Rental, rental));
 
     await em.flush();
 
