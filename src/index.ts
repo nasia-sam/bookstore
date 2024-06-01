@@ -9,6 +9,7 @@ import { initORMConnection } from "./utils/entity-manager";
 // resolvers
 import { AuthorResolver } from "./resolvers/AuthorResolver";
 import { BookResolver } from "./resolvers/BookResolver";
+import { RentalResolver } from "./resolvers/RentalResolver";
 
 const PORT = process.env.PORT || 4000;
 
@@ -18,7 +19,7 @@ async function bootstrap() {
 
   // ... Build GraphQL schema
   const schema = await buildSchema({
-    resolvers: [AuthorResolver, BookResolver],
+    resolvers: [AuthorResolver, BookResolver, RentalResolver],
     validate: true,
   });
 
