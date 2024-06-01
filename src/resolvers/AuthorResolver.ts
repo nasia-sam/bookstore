@@ -8,7 +8,7 @@ import { AuthorInput } from "../types/inputTypes/authorInput";
 export class AuthorResolver {
   @Query(() => [Author])
   async fetchAllAuthors(): Promise<Author[]> {
-    return await em.find("Author", {});
+    return await em.find("Author", {}, { populate: ["books"] });
   }
 
   @Mutation(() => Author)

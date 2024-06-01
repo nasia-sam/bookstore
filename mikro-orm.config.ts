@@ -3,7 +3,7 @@ import { SqliteDriver } from "@mikro-orm/sqlite";
 
 export default defineConfig({
   driver: SqliteDriver,
-  dbName: "bookstore.db",
+  dbName: "bookstore2.db",
   debug: true,
   entities: ["./src/types/entities/*.ts"],
 });
