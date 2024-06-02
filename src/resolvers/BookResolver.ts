@@ -8,7 +8,11 @@ import { em } from "../utils/entity-manager";
 export class BookResolver {
   @Query(() => [Book])
   async getAllBooks(): Promise<Book[]> {
-    return await em.find(Book, {}, { populate: ["author", "rentals"] });
+    return await em.find(
+      Book,
+      {},
+      { populate: ["author", "rentals", "rentals.user"] }
+    );
   }
 
   @Mutation(() => Book)
