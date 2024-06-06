@@ -1,7 +1,14 @@
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import {
+  Arg,
+  FieldResolver,
+  Mutation,
+  Query,
+  Resolver,
+  Root,
+} from "type-graphql";
 
 import { Book } from "../types/entities/Book";
-import { BookInput } from "../types/inputTypes/bookInput";
+import { BookInput } from "../types/inputs/bookInput";
 import { em } from "../utils/entity-manager";
 
 @Resolver(Book)
@@ -21,5 +28,12 @@ export class BookResolver {
     await em.persistAndFlush(book);
 
     return book;
+  }
+
+  @FieldResolver(() => Boolean)
+  available(@Root() book: Book) {
+    const rented = book.rentals.getItems().find((rental) => rental.to === null);
+
+    return !rented;
   }
 }

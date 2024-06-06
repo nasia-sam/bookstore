@@ -35,13 +35,6 @@ export class Book {
   @OneToMany(() => Rental, (rental) => rental.book)
   rentals = new Collection<Rental>(this);
 
-  @Field(() => Boolean)
-  available(@Root() book: Book) {
-    const rented = book.rentals.getItems().find((rental) => rental.to === null);
-
-    return !rented;
-  }
-
   @Field(() => Float)
   rating(@Root() book: Book) {
     const ratings = book.rentals.getItems().filter((rental) => rental.review);

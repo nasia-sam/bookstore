@@ -2,7 +2,7 @@ import { Arg, Mutation, Query, Resolver } from "type-graphql";
 
 import { Author } from "../types/entities/Author";
 import { em } from "../utils/entity-manager";
-import { AuthorInput } from "../types/inputTypes/authorInput";
+import { AuthorInput } from "../types/inputs/authorInput";
 
 @Resolver(Author)
 export class AuthorResolver {
