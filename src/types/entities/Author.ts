@@ -1,13 +1,31 @@
-import { Field, ID, ObjectType } from "type-graphql"
+import {
+  Collection,
+  Entity,
+  OneToMany,
+  PrimaryKey,
+  Property,
+} from "@mikro-orm/core";
+import { Field, ID, ObjectType } from "type-graphql";
+import { v4 } from "uuid";
+
+import { Book } from "./Book";
 
 @ObjectType()
+@Entity()
 export class Author {
   @Field(() => ID)
-  id: number
+  @PrimaryKey()
+  id: string = v4();
 
   @Field()
-  name: string
+  @Property()
+  name: string;
 
   @Field({ nullable: true })
-  publisher?: string
+  @Property()
+  publisher?: string;
+
+  @Field(() => [Book])
+  @OneToMany(() => Book, (books) => books.author)
+  books = new Collection<Book>(this);
 }
